@@ -1,0 +1,86 @@
+/**
+ * Definition for singly-linked list. public class ListNode { int val; ListNode
+ * next; ListNode(int x) { val = x; } }
+ */
+
+public class Solution {
+	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+		ListNode l = new ListNode(0);
+		ListNode tot1 = l1, tot2 = l2, tot = l;
+
+		int temp;
+		ListNode next;
+		while (tot1 != null && tot2 != null) {
+			temp = tot.val + tot1.val + tot2.val;
+			if (temp < 10) {
+				tot.val = temp;
+				tot.next = new ListNode(0);
+			} else {
+				tot.val = temp - 10;
+				tot.next = new ListNode(1);
+			}
+			tot1 = tot1.next;
+			tot2 = tot2.next;
+			if ((tot1 == null && tot2 == null) && temp < 10) {
+				tot.next = null;
+				break;
+			}
+			tot = tot.next;
+		}
+
+		while (tot1 != null) {
+			temp = tot.val + tot1.val;
+//			System.out.println(tot1.val + " " + +temp);
+			if (temp < 10) {
+				tot.val = temp;
+				tot.next = tot1.next;
+				break;
+			}
+			tot.val = temp - 10;
+			tot.next = new ListNode(1);
+			tot1 = tot1.next;
+			tot = tot.next;
+		}
+
+//		print(l);
+		while (tot2 != null) {
+			temp = tot.val + tot2.val;
+			if (temp < 10) {
+				tot.val = temp;
+				tot.next = tot2.next;
+				break;
+			}
+			tot.val = temp - 10;
+			tot.next = new ListNode(1);
+			tot2 = tot2.next;
+			tot = tot.next;
+		}
+
+//		print(l);
+		if (tot.val == 0) {
+			tot = null;
+		}
+//		print(l);
+		return l;
+	}
+
+	void print(ListNode l) {
+		ListNode temp = l;
+		while (temp != null) {
+			System.out.print(temp.val + "  ");
+			temp = temp.next;
+		}
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		ListNode node1 = new ListNode(9);
+		ListNode node2 = new ListNode(1);
+		ListNode node3 = new ListNode(9);
+		ListNode node4 = new ListNode(1);
+		node1.next = node3;
+		// node2.next = node4;
+		Solution s = new Solution();
+		s.addTwoNumbers(node1, node2);
+	}
+}
