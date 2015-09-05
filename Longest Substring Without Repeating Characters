@@ -1,0 +1,39 @@
+import java.util.Arrays;
+
+public class Solution {
+	public int lengthOfLongestSubstring(String s) {
+		if (s.equals(""))
+			return 0;
+		int max = 1;
+		int l = s.length();
+		int arr[] = new int[l];
+		Arrays.fill(arr, l);
+
+		loop: for (int i = 0; i < l; i++)
+			for (int j = i + 1; j < l; j++)
+				if (s.charAt(i) == s.charAt(j)) {
+					arr[i] = j;
+					continue loop;
+				}
+
+
+		loop: for (int i = 0; i < l; i++) {
+			int temp = arr[i] - i;
+			int upper = arr[i];
+			for (int j = i + 1; j <= upper && j < l; j++)
+				if (arr[j] < upper) {
+					temp = arr[j] - i;
+					upper = arr[j];
+				}
+			max = Math.max(max, temp);
+		}
+
+		return max;
+	}
+
+	public static void main(String[] args) {
+		String s = "cdd";
+		Solution so = new Solution();
+		System.out.println(so.lengthOfLongestSubstring(s));
+	}
+}
