@@ -1,0 +1,28 @@
+import java.util.HashMap;
+
+public class Solution {
+	public int[] twoSum(int[] nums, int target) {
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		int l = nums.length;
+		for (int i = 0; i < l; i++)
+			map.put(nums[i], i + 1);
+
+		int ans[] = new int[2];
+		for (int i = 0; i < l; i++) {
+			if (map.containsKey(target - nums[i])
+					&& map.get(target - nums[i]) != i + 1) {
+				ans[0] = i + 1;
+				ans[1] = map.get(target - nums[i]);
+				break;
+			}
+		}
+
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 3, 3, 2 };
+		Solution s = new Solution();
+		s.twoSum(arr, 6);
+	}
+}
