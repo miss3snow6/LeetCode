@@ -1,0 +1,48 @@
+public class Solution {
+	public int divide(int dividend, int divisor) {
+		long a = dividend;
+		long c = divisor, b = divisor;
+		int flag = 1;
+		if (a < 0) {
+			a = -a;
+			flag = -flag;
+		}
+		if (b < 0) {
+			b = -b;
+			c = -c;
+			flag = -flag;
+		}
+
+		long ans = 0;
+		int tot = 0;
+		while (a > b) {
+			if ((b << 1) > a)
+				break;
+			b <<= 1;
+			tot++;
+		}
+
+		while (a > 0) {
+			if (b < c)
+				break;
+			if (a >= b) {
+				ans += 1l << tot;
+				a = a - b;
+			}
+			b >>= 1;
+			tot--;
+		}
+
+		ans = ans * flag;
+		if (ans > Integer.MAX_VALUE)
+			return Integer.MAX_VALUE;
+		if (ans < Integer.MIN_VALUE)
+			return Integer.MAX_VALUE;
+		return (int) ans;
+	}
+
+	public static void main(String[] args) {
+		Solution s = new Solution();
+		System.out.println(s.divide(-2147483648, -1));
+	}
+}
