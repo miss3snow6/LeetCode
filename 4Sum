@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Solution {
+	public List<List<Integer>> fourSum(int[] nums, int target) {
+		Arrays.sort(nums);
+		int a, b, l, r;
+		List<List<Integer>> list = new ArrayList<List<Integer>>();
+		HashSet<List<Integer>> set = new HashSet<List<Integer>>();
+		for (int i = 0; i < nums.length - 3; i++) {
+			a = nums[i];
+			for (int j = i + 1; j < nums.length - 2; j++) {
+				b = nums[j];
+				l = j + 1;
+				r = nums.length - 1;
+				while (l < r) {
+					if (a + b + nums[l] + nums[r] == target) {
+						ArrayList<Integer> array = new ArrayList<Integer>();
+						array.add(a);
+						array.add(b);
+						array.add(nums[l]);
+						array.add(nums[r]);
+						if (!set.contains(array)) {
+							list.add(array);
+							set.add(array);
+						}
+
+						l++;
+						r--;
+					} else if (a + b + nums[l] + nums[r] < target) {
+						l++;
+					} else {
+						r--;
+					}
+				}
+			}
+		}
+		return list;
+	}
+}
