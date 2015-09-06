@@ -1,0 +1,167 @@
+public class Solution {
+	public String multiply(String num1, String num2) {
+		String zeroes = "";
+		String ans = "0", tmp;
+		for (int i = num1.length() - 1; i >= 0; i--) {
+			tmp = multiply(num2, num1.charAt(i) - '0') + zeroes;
+			// System.out.println(num2 + "  " + (num1.charAt(i) - '0') + "   "
+			// + tmp);
+			// System.out.print(ans + " + " + tmp + "  =  ");
+			ans = add(ans, tmp);
+			// System.out.println(ans);
+			zeroes += "0";
+		}
+		return ans;
+	}
+
+	String multiply(String num, int a) {
+		int cur, pre = 0, c;
+		String ans = "";
+		for (int i = num.length() - 1; i >= 0; i--) {
+			c = num.charAt(i) - '0';
+			cur = c * a + pre;
+			ans = cur % 10 + ans;
+			pre = cur / 10;
+		}
+		if (pre > 0)
+			ans = pre + ans;
+
+		int zero = 0;
+		// length-1是保证了n个0的情况
+		for (; zero < ans.length() - 1; zero++)
+			if (ans.charAt(zero) != '0')
+				break;
+		ans = ans.substring(zero);
+		return ans;
+	}
+
+	String add(String num1, String num2) {
+		if (num1.length() < num2.length()) {
+			String temp = num2;
+			num2 = num1;
+			num1 = temp;
+		}
+
+		int l1 = num1.length(), l2 = num2.length();
+		int l = Math.min(l1, l2);
+
+		int a, b, cur, pre = 0;
+		String ans = "";
+		for (int i = 1; i <= l; i++) {
+			a = num1.charAt(l1 - i) - '0';public class Solution {
+	public String multiply(String num1, String num2) {
+		String zeroes = "";
+		String ans = "0", tmp;
+		for (int i = num1.length() - 1; i >= 0; i--) {
+			tmp = multiply(num2, num1.charAt(i) - '0') + zeroes;
+			// System.out.println(num2 + "  " + (num1.charAt(i) - '0') + "   "
+			// + tmp);
+			// System.out.print(ans + " + " + tmp + "  =  ");
+			ans = add(ans, tmp);
+			// System.out.println(ans);
+			zeroes += "0";
+		}
+		return ans;
+	}
+
+	String multiply(String num, int a) {
+		int cur, pre = 0, c;
+		String ans = "";
+		for (int i = num.length() - 1; i >= 0; i--) {
+			c = num.charAt(i) - '0';
+			cur = c * a + pre;
+			ans = cur % 10 + ans;
+			pre = cur / 10;
+		}
+		if (pre > 0)
+			ans = pre + ans;
+
+		int zero = 0;
+		// length-1是保证了n个0的情况
+		for (; zero < ans.length() - 1; zero++)
+			if (ans.charAt(zero) != '0')
+				break;
+		ans = ans.substring(zero);
+		return ans;
+	}
+
+	String add(String num1, String num2) {
+		if (num1.length() < num2.length()) {
+			String temp = num2;
+			num2 = num1;
+			num1 = temp;
+		}
+
+		int l1 = num1.length(), l2 = num2.length();
+		int l = Math.min(l1, l2);
+
+		int a, b, cur, pre = 0;
+		String ans = "";
+		for (int i = 1; i <= l; i++) {
+			a = num1.charAt(l1 - i) - '0';
+			b = num2.charAt(l2 - i) - '0';
+			cur = pre + a + b;
+			ans = cur % 10 + ans;
+			pre = cur / 10;
+		}
+		for (int i = l; i < l1; i++) {
+			if (pre == 0) {
+				ans = num1.substring(0, l1 - i) + ans;
+				break;
+			}
+			a = num1.charAt(l1 - i - 1) - '0';
+			cur = pre + a;
+			ans = cur % 10 + ans;
+			pre = cur / 10;
+		}
+		if (pre > 0)
+			ans = pre + ans;
+
+		int zero = 0;
+		// length-1是保证了n个0的情况
+		for (; zero < ans.length() - 1; zero++)
+			if (ans.charAt(zero) != '0')
+				break;
+		ans = ans.substring(zero);
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		Solution s = new Solution();
+		// System.out.println(s.add("1368", "9120"));
+		System.out.println(s.multiply("123", "456"));
+	}
+}
+			b = num2.charAt(l2 - i) - '0';
+			cur = pre + a + b;
+			ans = cur % 10 + ans;
+			pre = cur / 10;
+		}
+		for (int i = l; i < l1; i++) {
+			if (pre == 0) {
+				ans = num1.substring(0, l1 - i) + ans;
+				break;
+			}
+			a = num1.charAt(l1 - i - 1) - '0';
+			cur = pre + a;
+			ans = cur % 10 + ans;
+			pre = cur / 10;
+		}
+		if (pre > 0)
+			ans = pre + ans;
+
+		int zero = 0;
+		// length-1是保证了n个0的情况
+		for (; zero < ans.length() - 1; zero++)
+			if (ans.charAt(zero) != '0')
+				break;
+		ans = ans.substring(zero);
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		Solution s = new Solution();
+		// System.out.println(s.add("1368", "9120"));
+		System.out.println(s.multiply("123", "456"));
+	}
+}
