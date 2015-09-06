@@ -1,0 +1,27 @@
+public class Solution {
+	public int reverse(int x) {
+		long num = (long) x;
+		int coefficient = 1;
+		if (num < 0) {
+			coefficient = -1;
+			num=-num;
+		}
+		long ans = 0;
+		while (num > 0) {
+			int mod = (int) (num % 10);
+			num=num/ 10;
+			ans = ans * 10 + mod;
+		}
+		if(ans>Integer.MAX_VALUE)
+			ans=0;
+		return (int) (ans * coefficient);
+	}
+
+	public static void main(String[] args) {
+		Solution solution = new Solution();
+		System.out.println(solution.reverse(123));
+		System.out.println(solution.reverse(-123));
+		System.out.println(solution.reverse(1534236469));
+		System.out.println(Integer.MAX_VALUE);
+	}
+}
