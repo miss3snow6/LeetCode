@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Solution {
+	List<List<Integer>> list;
+
+	public List<List<Integer>> combinationSum(int[] candidates, int target) {
+		list = new ArrayList<List<Integer>>();
+		Arrays.sort(candidates);
+
+		int limit = (int) Math.ceil(1.0 * target / candidates[0]);
+
+		ArrayList<Integer> l = new ArrayList<Integer>();
+		dfs(0, 0, 0, limit, l, candidates, target);
+		System.out.println(list);
+		return list;
+	}
+
+	void dfs(int currentSum, int tot, int currentNum, int limitNum,
+			ArrayList<Integer> str, int[] nums, int target) {
+		if (currentSum > target) {
+			return;
+		}
+		if (tot == nums.length) {
+			if (currentSum == target) {
+				// System.out.println("answer:  " + str);
+				list.add(new ArrayList<>(str));
+			}
+			return;
+		}
+
+		int tempSum;
+		for (int i = currentNum; i <= limitNum; i++) {
+			tempSum = currentSum + nums[tot] * (i - currentNum);
+			if (i > currentNum)
+				str.add(nums[tot]);
+			dfs(tempSum, tot + 1, i, limitNum, str, nums, target);
+		}
+		for (int i = currentNum; i < limitNum; i++) {
+			str.remove(str.size() - 1);
+		}
+	}
+
+	public static void main(String[] args) {
+		Solution s = new Solution();
+		int[] c = new int[] { 1, 2, 3, 4 };
+		int t = 5;
+		s.combinationSum(c, t);
+	}
+
+}
