@@ -1,0 +1,48 @@
+public class Solution {
+	public int[] searchRange(int[] nums, int target) {
+		int maxSmaller = getMaxSmaller(nums, target);
+		int minBigger = getMinBigger(nums, target);
+
+		System.out.println(maxSmaller + "  " + minBigger);
+		return new int[] { maxSmaller, minBigger };
+	}
+
+	int getMaxSmaller(int[] nums, int target) {
+		int l = 0, r = nums.length - 1, mid;
+		while (l + 1 < r) {
+			mid = (l + r) / 2;
+			if (nums[mid] >= target)
+				r = mid;
+			else
+				l = mid;
+		}
+		if (nums[l] == target)
+			return l;
+		if (l < nums.length - 1 && nums[l + 1] == target)
+			return l + 1;
+		return -1;
+	}
+
+	int getMinBigger(int[] nums, int target) {
+		int l = 0, r = nums.length - 1, mid;
+		while (l + 1 < r) {
+			mid = (l + r) / 2;
+			if (nums[mid] <= target)
+				l = mid;
+			else
+				r = mid;
+		}
+		if (nums[r] == target)
+			return r;
+		if (r > 0 && nums[r - 1] == target)
+			return r - 1;
+		return -1;
+	}
+
+	public static void main(String[] args) {
+		int arr[] = new int[] { 1, 1, 1, 1, 1 };
+		int t = 0;
+		Solution s = new Solution();
+		s.searchRange(arr, t);
+	}
+}
