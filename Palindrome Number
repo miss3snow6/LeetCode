@@ -1,0 +1,22 @@
+public class Solution {
+	public boolean isPalindrome(int x) {
+		if (x < 0)
+			return false;
+		int bigger = 1, smaller = 1;
+		for (int i = 1; i < (x + "").length(); i++)
+			bigger = bigger * 10;
+		while (bigger >= smaller) {
+			if (x / bigger % 10 != x / smaller % 10) {
+				return false;
+			}
+			bigger = bigger / 10;
+			smaller = smaller * 10;
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+		Solution solution = new Solution();
+		solution.isPalindrome(12321);
+	}
+}
