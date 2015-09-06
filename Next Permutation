@@ -1,0 +1,43 @@
+import java.util.Arrays;
+
+public class Solution {
+	public void nextPermutation(int[] nums) {
+		int ascendingPoint = getAscendingPoint(nums);
+		// System.out.println("ascendingpoint is " + ascendingPoint);
+		if (ascendingPoint == 0) {
+			Arrays.sort(nums);
+		} else {
+			int minBigger = Integer.MAX_VALUE;
+			for (int i = nums.length - 1; i >= ascendingPoint; i--) {
+				if (nums[i] > nums[ascendingPoint - 1] && nums[i] < minBigger) {
+					minBigger = nums[i];
+					nums[i] = nums[ascendingPoint - 1];
+					nums[ascendingPoint - 1] = minBigger;
+				}
+			}
+			Arrays.sort(nums, ascendingPoint, nums.length);
+		}
+	}
+
+	int getAscendingPoint(int nums[]) {
+		for (int i = nums.length - 1; i > 0; i--)
+			if (nums[i] > nums[i - 1])
+				return i;
+		return 0;
+	}
+
+	void print(int num[]) {
+		for (int i = 0; i < num.length; i++)
+			System.out.print(num[i] + " ");
+		System.out.println();
+
+	}
+
+	public static void main(String[] args) {
+		Solution s = new Solution();
+
+		int arr[] = new int[] { 1, 2 };
+		s.nextPermutation(arr);
+		s.print(arr);
+	}
+}
