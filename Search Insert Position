@@ -1,0 +1,24 @@
+public class Solution {
+	public int searchInsert(int[] nums, int target) {
+		if (target <= nums[0])
+			return 0;
+		if (target > nums[nums.length - 1])
+			return nums.length;
+		int minBigger = getMinBigger(nums, target);
+		return minBigger;
+	}
+
+	int getMinBigger(int[] nums, int target) {
+		int l = 0, r = nums.length - 1, mid;
+		while (l + 1 < r) {
+			mid = (l + r) / 2;
+			if (nums[mid] < target)
+				l = mid;
+			else if (nums[mid] > target)
+				r = mid;
+			else
+				return mid;
+		}
+		return r;
+	}
+}
