@@ -1,0 +1,28 @@
+import java.util.Stack;
+
+public class Solution {
+	public boolean isValid(String s) {
+		Stack<Character> stack = new Stack();
+		char ch, top;
+		for (int i = 0; i < s.length(); i++) {
+			ch = s.charAt(i);
+			if (ch == '(' || ch == '[' || ch == '{')
+				stack.push(ch);
+			else {
+				if (stack.empty())
+					return false;
+				top = stack.pop();
+				if (ch == ')' && top != '(') {
+					return false;
+				} else if (ch == ']' && top != '[') {
+					return false;
+				} else if (ch == '{' && top != '}')
+					return false;
+			}
+		}
+		if (stack.empty())
+			return true;
+		else
+			return false;
+	}
+}
