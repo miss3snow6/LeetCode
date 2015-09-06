@@ -1,0 +1,43 @@
+import java.util.Arrays;
+
+public class Solution {
+	public int threeSumClosest(int[] nums, int target) {
+		int min = 2 << 20 - target, ans = 0;
+		int l, r, temp;
+		Arrays.sort(nums);
+		for (int i = 0; i < nums.length; i++) {
+			if (i > 0 && nums[i] == nums[i - 1])
+				continue;
+			l = i + 1;
+			r = nums.length - 1;
+			while (l < r) {
+				temp = nums[i] + nums[l] + nums[r];
+				if (temp == target) {
+					return target;
+				} else if (temp < target) {
+					l++;
+					if (min > target - temp) {
+						min = target - temp;
+						ans = temp;
+					}
+				} else {
+					r--;
+					if (min > temp - target) {
+						min = temp - target;
+						ans = temp;
+					}
+				}
+				// System.out.println("after  " + temp + "   " + (target + min)
+				// + "  " + (target - min) + "   " + min);
+			}
+		}
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		int[] arr = { 0, 0, 0 };
+		int a = 1;
+		Solution s = new Solution();
+		System.out.println(s.threeSumClosest(arr, a));
+	}
+}
