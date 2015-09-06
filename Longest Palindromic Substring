@@ -1,0 +1,59 @@
+import java.util.Arrays;
+
+public class Solution {
+
+	boolean dp[][];
+	int l;
+
+	public String longestPalindrome(String s) {
+		int l = s.length();
+		char arr[] = new char[2 * l + 3];
+		arr[0] = '$';
+		arr[1] = '#';
+		for (int i = 0; i < l; i++) {
+			arr[i * 2 + 2] = s.charAt(i);
+			arr[i * 2 + 3] = '#';
+		}
+		arr[2 * l + 2] = '?';
+
+		int id = 1, mx = 0;
+		int p[] = new int[arr.length];
+		p[1] = 1;
+		for (int i = 1; i < 2 * l + 2; i++) {
+			if (mx > i) {
+				p[i] = Math.min(p[2 * id - i], mx - i);
+			} else {
+				p[i] = 1;
+			}
+
+			while (arr[i - p[i]] == arr[i + p[i]])
+				p[i]++;
+			if (i + p[i] > mx) {
+				id = i;
+				mx = i + p[i];
+			}
+		}
+
+		int len = 1;
+		for (int i = 0; i < p.length; i++)
+			if (len < p[i] - 1) {
+				len = p[i] - 1;
+				id = i;
+			}
+		String ans = "";
+		for (int i = id - p[id] + 1; i < id + p[id]; i++)
+			if (arr[i] != '#')
+				ans += arr[i];
+//		System.out.println(ans);
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		String s = "ccd";
+		Solution so = new Solution();
+		long t1 = System.currentTimeMillis();
+		System.out.println(so.longestPalindrome(s));
+		long t2 = System.currentTimeMillis();
+		System.out.println(t2 - t1);
+	}
+}
