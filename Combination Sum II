@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Solution {
+	List<List<Integer>> list;
+
+	public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+		list = new ArrayList<List<Integer>>();
+		Arrays.sort(candidates);
+		// int[] nums = new int[candidates.length + 1];
+		// for (int i = 0; i < candidates.length; i++)
+		// nums[i] = candidates[i];
+		// nums[nums.length - 1] = 0;
+
+		// int limit = (int) Math.ceil(1.0 * target / candidates[0]);
+
+		ArrayList<Integer> l = new ArrayList<Integer>();
+		dfs(0, 0, l, candidates, target);
+		// System.out.println(list);
+		return list;
+	}
+
+	void dfs(int currentSum, int tot, ArrayList<Integer> str, int[] nums,
+			int target) {
+		if (currentSum > target) {
+			return;
+		}
+		if (tot == nums.length) {
+			if (currentSum == target) {
+				// System.out.println("answer:  " + str);
+				list.add(new ArrayList<>(str));
+			}
+			return;
+		}
+
+		int bound = tot + 1;
+		// loop: {
+		for (int i = tot + 1; i < nums.length; i++) {
+			if (nums[i] == nums[tot]) {
+				if (i + 1 == nums.length) {
+					bound = nums.length;
+				}
+				continue;
+			}
+			bound = i;
+			break;
+		}
+
+		dfs(currentSum, bound, str, nums, target);
+		for (int i = tot; i < bound; i++) {
+			str.add(nums[tot]);
+			currentSum += nums[tot];
+			dfs(currentSum, bound, str, nums, target);
+		}
+		for (int i = tot; i < bound; i++) {
+			str.remove(str.size() - 1);
+			currentSum -= nums[tot];
+		}
+	}
+
+	void print(int arr[]) {
+		for (int i = 0; i < arr.length; i++)
+			System.out.print(arr[i] + " ");
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		Solution s = new Solution();
+		int arr[] = new int[] { 1, 1, 1 };
+		s.combinationSum2(arr, 1);
+	}
+}
